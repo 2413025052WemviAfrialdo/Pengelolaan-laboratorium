@@ -33,17 +33,24 @@ body {
     flex: 1;
     overflow: auto;
     /* Memberi ruang di bawah agar dokumen tidak tertutup navigasi melayang */
-    padding: 30px 20px 120px 20px; 
+    padding: 20px 20px 100px 20px; 
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    /* Ubah ke center agar posisi PDF di desktop tepat di tengah layar */
+    align-items: center; 
 }
 
+/* PEMBARUAN UTAMA: Agar 1 halaman penuh muat di layar */
 canvas {
     border-radius: 8px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    /* Paksa tinggi maksimumnya disesuaikan dengan tinggi layar laptop */
+    max-height: calc(100vh - 120px); 
     max-width: 100%;
+    /* Gunakan important untuk menimpa ukuran asli dari JavaScript */
+    width: auto !important;
     height: auto !important;
+    object-fit: contain;
 }
 
 /* --- NAVIGASI KAPSUL MELAYANG (BAWAH TENGAH) --- */
@@ -123,7 +130,7 @@ canvas {
 .profile-panel {
     position: fixed;
     top: 0;
-    right: -420px; /* Sembunyikan di luar layar saat awal */
+    right: -420px; 
     width: 350px;
     height: 100vh;
     background: rgba(15, 23, 42, 0.85);
@@ -140,7 +147,7 @@ canvas {
 }
 
 .profile-panel.open {
-    right: 0; /* Munculkan ke layar saat diklik */
+    right: 0; 
 }
 
 .close-panel-btn {
@@ -160,7 +167,6 @@ canvas {
     transform: rotate(90deg);
 }
 
-/* Area Profil di Dalam Panel */
 .logo-container {
     display: flex;
     justify-content: center;
@@ -227,10 +233,23 @@ canvas {
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
 }
 
-/* Responsif Mobile Khusus Layout Baru */
+/* =============================================
+   RESPONSIF KHUSUS MOBILE (HP)
+   ============================================= */
 @media (max-width: 768px) {
     .profile-panel { width: 100%; right: -100%; }
     .floating-nav { bottom: 20px; width: 85%; justify-content: space-between; }
-    /* Pindahkan tombol Profil lebih ke atas sedikit di HP agar tidak terhalang */
     .fab-profile { bottom: 100px; right: 20px; width: 55px; height: 55px; }
+
+    /* Pengaturan PDF di Layar HP */
+    .canvas-container {
+        padding: 20px 10px 120px 10px;
+        align-items: flex-start; /* Di HP dimulai dari atas agar bisa digulir ke bawah */
+    }
+
+    canvas {
+        max-height: none; /* Hilangkan batasan tinggi di HP */
+        width: 100% !important; /* Paksa lebar menyesuaikan layar HP agar teks terbaca */
+        height: auto !important;
+    }
 }
