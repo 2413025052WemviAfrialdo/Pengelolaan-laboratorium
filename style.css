@@ -1,0 +1,274 @@
+/* --- TEMA GITHUB DARK --- */
+:root {
+    --bg-main: #0d1117;
+    --bg-card: #161b22;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent-blue: #2f81f7;
+    --accent-blue-hover: #1f6feb;
+    --btn-bg: #21262d;
+    --btn-hover: #30363d;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- SIDEBAR UTAMA (Desktop: Kiri) --- */
+.sidebar {
+    width: 320px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    flex-shrink: 0;
+    transition: transform 0.3s ease; /* Untuk animasi mobile */
+    z-index: 100; /* Agar di atas segalanya di mobile */
+}
+
+/* Tombol Tutup Mobile - Sembunyikan di Desktop */
+.close-sidebar-btn {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.close-sidebar-btn:hover { color: var(--text-primary); }
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+/* GAYA FOTO PROFIL ANDA */
+.logo-img {
+    width: 100px; /* Ukuran foto profil */
+    height: 100px;
+    object-fit: cover; /* Agar foto tidak gepeng */
+    border-radius: 50%; /* Bulat sempurna */
+    border: 3px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.identity-card {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.identity-card h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.identity-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.identity-info strong {
+    color: var(--text-primary);
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 15px 0;
+}
+
+.btn-download {
+    background-color: var(--accent-blue);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+    margin-top: auto;
+}
+
+.btn-download:hover {
+    background-color: var(--accent-blue-hover);
+}
+
+/* --- AREA PDF UTAMA (Kanan) --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+}
+
+/* Toolbar Navigasi Desktop - Sembunyikan di Mobile */
+.toolbar {
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.btn-nav {
+    background-color: var(--btn-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-nav:hover {
+    background-color: var(--btn-hover);
+    border-color: var(--text-muted);
+}
+
+.page-info {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.page-info strong {
+    color: var(--text-primary);
+}
+
+/* Area Canvas */
+.canvas-container {
+    flex: 1;
+    overflow: auto;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+canvas {
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.5);
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* --- PEMBARUAN: NAVBAR MOBILE (Hanya muncul di HP) --- */
+.mobile-nav {
+    display: none; /* Sembunyikan di desktop */
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 16px;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px;
+}
+.menu-toggle:hover { color: var(--text-primary); }
+
+.pdf-nav-mobile {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-nav-mobile {
+    background-color: var(--btn-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+
+/* =============================================
+   ULTRA-RESPONSIVE MEDIA QUERY (UNTUK MOBILE)
+   ============================================= */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    /* Sembunyikan Toolbar Desktop */
+    .toolbar { display: none; }
+
+    /* Tampilkan Mobile Nav */
+    .mobile-nav { display: flex; }
+
+    /* --- SIDEBAR MOBILE: Menjadi Sidebar Tersembunyi --- */
+    .sidebar {
+        position: fixed; /* Mendorongnya ke atas segalanya */
+        top: 0;
+        left: 0;
+        width: 280px; /* Lebar Sidebar HP */
+        height: 100vh;
+        transform: translateX(-100%); /* Sembunyikan ke kiri layar */
+        border-right: 1px solid var(--border-color);
+        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+        padding: 20px;
+    }
+
+    /* Kelas untuk membuka sidebar (akan ditambahkan via JS) */
+    .sidebar.open {
+        transform: translateX(0); /* Munculkan ke layar */
+    }
+
+    /* Tampilkan Tombol Tutup di Mobile Sidebar */
+    .close-sidebar-btn { display: block; }
+
+    /* Area Kanan/PDF di Mobile */
+    .main-content {
+        height: auto;
+        margin-left: 0;
+    }
+
+    .canvas-container {
+        padding: 16px 10px;
+    }
+}
