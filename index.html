@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOP Viewer Lab - Wemvi Afrialdo</title>
+    <title>SOP Viewer - Wemvi Afrialdo</title>
 
     <link rel="icon" type="image/png" href="logo.png">
     
@@ -12,26 +12,16 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="light-theme"> 
-    <div class="mobile-nav">
-        <button class="menu-toggle" id="mobile-menu-btn" title="Tampilkan Identitas & Download">
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+<body> 
 
-        <div class="page-info">
-            Hal. <strong id="page-num-mobile">0</strong> / <span id="page-count-mobile">0</span>
-        </div>
+    <button class="fab-profile" id="fab-profile-btn" title="Lihat Profil & Unduh">
+        <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+        </svg>
+    </button>
 
-        <div class="pdf-nav-mobile">
-            <button class="btn-nav-mobile" id="prev-page-mobile">&larr;</button>
-            <button class="btn-nav-mobile" id="next-page-mobile">&rarr;</button>
-        </div>
-    </div>
-
-    <div class="sidebar" id="main-sidebar">
-        <button class="close-sidebar-btn" id="mobile-close-btn">&times;</button>
+    <div class="profile-panel" id="profile-panel">
+        <button class="close-panel-btn" id="close-panel-btn">&times;</button>
 
         <div class="logo-container">
             <img src="profil.png" alt="Foto Profil Wemvi Afrialdo" class="logo-img" id="foto-profil">
@@ -58,23 +48,23 @@
     </div>
 
     <div class="main-content">
-        <div class="toolbar">
-            <button class="btn-nav" id="prev-page" title="Bisa tekan tombol Panah Kiri di keyboard">
-                &larr; Sebelumnya
-            </button>
-            
-            <div class="page-info">
-                Halaman: <strong id="page-num">0</strong> / <span id="page-count">0</span>
-            </div>
-            
-            <button class="btn-nav" id="next-page" title="Bisa tekan tombol Panah Kanan di keyboard">
-                Selanjutnya &rarr;
-            </button>
-        </div>
-
         <div class="canvas-container">
             <canvas id="pdf-render"></canvas>
         </div>
+    </div>
+
+    <div class="floating-nav">
+        <button class="btn-nav" id="prev-page" title="Sebelumnya (Panah Kiri)">
+            &larr;
+        </button>
+        
+        <div class="page-info">
+            <strong id="page-num">0</strong> / <span id="page-count">0</span>
+        </div>
+        
+        <button class="btn-nav" id="next-page" title="Selanjutnya (Panah Kanan)">
+            &rarr;
+        </button>
     </div>
 
     <script src="script.js"></script>
