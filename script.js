@@ -11,7 +11,6 @@ let pdfDoc = null,
 const canvas = document.getElementById('pdf-render'),
       ctx = canvas.getContext('2d');
 
-// Fungsi Render PDF (Kualitas Tinggi / Retina Ready)
 const renderPage = num => {
     pageIsRendering = true;
     pdfDoc.getPage(num).then(page => {
@@ -46,9 +45,6 @@ const renderPage = num => {
         // Update indikator halaman
         const pageNumEl = document.getElementById('page-num');
         if(pageNumEl) pageNumEl.textContent = num;
-
-        const pageNumMobileEl = document.getElementById('page-num-mobile');
-        if(pageNumMobileEl) pageNumMobileEl.textContent = num;
     });
 };
 
@@ -85,9 +81,6 @@ pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
     const pageCountEl = document.getElementById('page-count');
     if(pageCountEl) pageCountEl.textContent = pdfDoc.numPages;
 
-    const pageCountMobileEl = document.getElementById('page-count-mobile');
-    if(pageCountMobileEl) pageCountMobileEl.textContent = pdfDoc.numPages;
-
     let targetPage = getPageFromHash();
     if (targetPage > pdfDoc.numPages) targetPage = pdfDoc.numPages;
     if (targetPage < 1) targetPage = 1;
@@ -100,46 +93,46 @@ pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
 });
 
 // =============================================
-//      EVENT LISTENERS (Desktop & Mobile)
+//      EVENT LISTENERS UTAMA
 // =============================================
 
+// Tombol Navigasi Bawah
 const prevBtn = document.getElementById('prev-page');
 if(prevBtn) prevBtn.addEventListener('click', showPrevPage);
 
 const nextBtn = document.getElementById('next-page');
 if(nextBtn) nextBtn.addEventListener('click', showNextPage);
 
-const prevBtnMobile = document.getElementById('prev-page-mobile');
-if(prevBtnMobile) prevBtnMobile.addEventListener('click', showPrevPage);
+// =============================================
+// LOGIKA PANEL PROFIL MELAYANG (FAB LOGIC)
+// =============================================
+const fabBtn = document.getElementById('fab-profile-btn');
+const closeBtn = document.getElementById('close-panel-btn');
+const profilePanel = document.getElementById('profile-panel');
 
-const nextBtnMobile = document.getElementById('next-page-mobile');
-if(nextBtnMobile) nextBtnMobile.addEventListener('click', showNextPage);
-
-// LOGIKA MENU PONSEL
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileCloseBtn = document.getElementById('mobile-close-btn');
-const mainSidebar = document.getElementById('main-sidebar');
-
-if(mobileMenuBtn && mobileCloseBtn && mainSidebar) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mainSidebar.classList.add('open');
+if(fabBtn && closeBtn && profilePanel) {
+    // Buka Panel saat klik ikon melayang
+    fabBtn.addEventListener('click', () => {
+        profilePanel.classList.add('open');
     });
 
-    mobileCloseBtn.addEventListener('click', () => {
-        mainSidebar.classList.remove('open'); 
+    // Tutup Panel saat klik tanda silang (X)
+    closeBtn.addEventListener('click', () => {
+        profilePanel.classList.remove('open'); 
     });
 
+    // Tutup Panel otomatis jika klik area gelap di luar panel
     document.addEventListener('click', (event) => {
-        const isClickInsideMenu = mobileMenuBtn.contains(event.target);
-        const isClickInsideSidebar = mainSidebar.contains(event.target);
+        const isClickInsidePanel = profilePanel.contains(event.target);
+        const isClickInsideFab = fabBtn.contains(event.target);
 
-        if (!isClickInsideSidebar && !isClickInsideMenu && mainSidebar.classList.contains('open')) {
-            mainSidebar.classList.remove('open');
+        if (!isClickInsidePanel && !isClickInsideFab && profilePanel.classList.contains('open')) {
+            profilePanel.classList.remove('open');
         }
     });
 }
 
-// Tombol Keyboard
+// Tombol Keyboard Panah
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') showPrevPage();
     else if (event.key === 'ArrowRight') showNextPage();
@@ -167,34 +160,27 @@ if (fotoProfil) {
     });
 }
 
-// FITUR OTOMATIS MEMBULATKAN FAVICON
+// Fitur Favicon
 function buatFaviconBulat(urlGambar) {
     const img = new Image();
-    
     img.onload = function() {
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
         const ctx = canvas.getContext('2d');
-        
         ctx.beginPath();
         ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0, Math.PI * 2);
         ctx.closePath();
         ctx.clip();
-        
         ctx.drawImage(img, 0, 0);
-        
         let linkFavicon = document.querySelector("link[rel*='icon']");
         if (!linkFavicon) {
             linkFavicon = document.createElement('link');
             linkFavicon.rel = 'icon';
             document.head.appendChild(linkFavicon);
         }
-        
         linkFavicon.href = canvas.toDataURL('image/png');
     };
-    
     img.src = urlGambar;
 }
-
 buatFaviconBulat('logo.png');
