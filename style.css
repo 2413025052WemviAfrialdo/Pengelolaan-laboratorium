@@ -1,21 +1,22 @@
-/* --- TEMA GITHUB DARK --- */
+/* --- TEMA MODERN GLASSMORPHISM --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root {
-    --bg-main: #0d1117;
-    --bg-card: #161b22;
-    --border-color: #30363d;
-    --text-primary: #c9d1d9;
-    --text-muted: #8b949e;
-    --accent-blue: #2f81f7;
-    --accent-blue-hover: #1f6feb;
-    --btn-bg: #21262d;
-    --btn-hover: #30363d;
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    --accent-hover: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    --btn-glass: rgba(255, 255, 255, 0.05);
 }
 
 body {
     margin: 0;
-    background-color: var(--bg-main);
+    background: var(--bg-gradient);
     color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif; /* Font yang lebih modern */
     display: flex;
     flex-direction: row;
     height: 100vh;
@@ -24,99 +25,127 @@ body {
 
 /* --- SIDEBAR UTAMA (Desktop: Kiri) --- */
 .sidebar {
-    width: 320px;
-    background-color: var(--bg-card);
-    border-right: 1px solid var(--border-color);
+    width: 340px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 30px 24px;
     box-sizing: border-box;
     overflow-y: auto;
     flex-shrink: 0;
-    transition: transform 0.3s ease; /* Untuk animasi mobile */
-    z-index: 100; /* Agar di atas segalanya di mobile */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.2);
 }
 
-/* Tombol Tutup Mobile - Sembunyikan di Desktop */
 .close-sidebar-btn {
     display: none;
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 15px;
+    right: 20px;
     background: none;
     border: none;
     color: var(--text-muted);
-    font-size: 2rem;
+    font-size: 2.2rem;
     cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.close-sidebar-btn:hover { color: var(--text-primary); }
+.close-sidebar-btn:hover { 
+    color: var(--text-primary); 
+    transform: rotate(90deg);
+}
 
 .logo-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
-/* GAYA FOTO PROFIL ANDA */
+/* GAYA FOTO PROFIL BERSINAR */
 .logo-img {
-    width: 100px; /* Ukuran foto profil */
-    height: 100px;
-    object-fit: cover; /* Agar foto tidak gepeng */
-    border-radius: 50%; /* Bulat sempurna */
-    border: 3px solid var(--border-color);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    width: 110px; 
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    background-image: var(--bg-gradient), var(--accent-gradient);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
 }
 
 .identity-card {
-    background-color: var(--bg-main);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.identity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .identity-card h2 {
-    margin: 0 0 5px 0;
-    font-size: 1.1rem;
-    color: var(--text-primary);
+    margin: 0 0 8px 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .identity-info {
     font-size: 0.85rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
 .identity-info strong {
-    color: var(--text-primary);
+    color: #e2e8f0;
+    font-weight: 500;
 }
 
 .divider {
     height: 1px;
-    background-color: var(--border-color);
-    margin: 15px 0;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    margin: 18px 0;
 }
 
 .btn-download {
-    background-color: var(--accent-blue);
+    background: var(--accent-gradient);
     color: #ffffff;
     text-decoration: none;
-    padding: 12px;
-    border-radius: 6px;
+    padding: 14px;
+    border-radius: 50px; /* Bentuk pil/kapsul */
     text-align: center;
     font-weight: 600;
     font-size: 0.95rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: background 0.2s;
+    gap: 10px;
+    transition: all 0.3s ease;
     margin-top: auto;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    border: border: 1px solid rgba(255,255,255,0.1);
 }
 
 .btn-download:hover {
-    background-color: var(--accent-blue-hover);
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
 }
 
 /* --- AREA PDF UTAMA (Kanan) --- */
@@ -128,72 +157,81 @@ body {
     height: 100vh;
 }
 
-/* Toolbar Navigasi Desktop - Sembunyikan di Mobile */
+/* Toolbar Navigasi Desktop */
 .toolbar {
-    background-color: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
-    padding: 12px 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 16px 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
     position: sticky;
     top: 0;
     z-index: 10;
 }
 
 .btn-nav {
-    background-color: var(--btn-bg);
+    background: var(--btn-glass);
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    padding: 8px 16px;
-    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    padding: 10px 20px;
+    border-radius: 50px;
     cursor: pointer;
     font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .btn-nav:hover {
-    background-color: var(--btn-hover);
-    border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 .page-info {
     font-size: 0.95rem;
     color: var(--text-muted);
+    background: rgba(0,0,0,0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
 }
 
 .page-info strong {
-    color: var(--text-primary);
+    color: #ffffff;
+    font-weight: 600;
 }
 
 /* Area Canvas */
 .canvas-container {
     flex: 1;
     overflow: auto;
-    padding: 30px 20px;
+    padding: 40px 20px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
 canvas {
-    border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
     max-width: 100%;
     height: auto !important;
 }
 
-/* --- PEMBARUAN: NAVBAR MOBILE (Hanya muncul di HP) --- */
+/* --- NAVBAR MOBILE --- */
 .mobile-nav {
-    display: none; /* Sembunyikan di desktop */
-    background-color: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
-    padding: 10px 16px;
+    display: none; 
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 12px 20px;
     justify-content: space-between;
     align-items: center;
     position: sticky;
@@ -202,32 +240,40 @@ canvas {
 }
 
 .menu-toggle {
-    background: none;
-    border: none;
-    color: var(--text-muted);
+    background: var(--btn-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-primary);
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
 }
-.menu-toggle:hover { color: var(--text-primary); }
+.menu-toggle:hover { background: rgba(255,255,255,0.1); }
 
 .pdf-nav-mobile {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .btn-nav-mobile {
-    background-color: var(--btn-bg);
+    background: var(--btn-glass);
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 1.1rem;
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 1.2rem;
     cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-nav-mobile:hover {
+    background: rgba(255,255,255,0.1);
 }
 
-
 /* =============================================
-   ULTRA-RESPONSIVE MEDIA QUERY (UNTUK MOBILE)
+   RESPONSIVE MOBILE
    ============================================= */
 @media (max-width: 768px) {
     body {
@@ -235,40 +281,34 @@ canvas {
         overflow: auto;
     }
 
-    /* Sembunyikan Toolbar Desktop */
     .toolbar { display: none; }
-
-    /* Tampilkan Mobile Nav */
     .mobile-nav { display: flex; }
 
-    /* --- SIDEBAR MOBILE: Menjadi Sidebar Tersembunyi --- */
     .sidebar {
-        position: fixed; /* Mendorongnya ke atas segalanya */
+        position: fixed;
         top: 0;
         left: 0;
-        width: 280px; /* Lebar Sidebar HP */
+        width: 300px; 
         height: 100vh;
-        transform: translateX(-100%); /* Sembunyikan ke kiri layar */
-        border-right: 1px solid var(--border-color);
-        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-        padding: 20px;
+        transform: translateX(-100%); 
+        border-right: 1px solid var(--glass-border);
+        box-shadow: 20px 0 50px rgba(0,0,0,0.7);
+        padding: 30px 20px;
+        background: rgba(15, 23, 42, 0.95); /* Sedikit lebih gelap di mobile agar teks terbaca jelas */
     }
 
-    /* Kelas untuk membuka sidebar (akan ditambahkan via JS) */
     .sidebar.open {
-        transform: translateX(0); /* Munculkan ke layar */
+        transform: translateX(0); 
     }
 
-    /* Tampilkan Tombol Tutup di Mobile Sidebar */
     .close-sidebar-btn { display: block; }
 
-    /* Area Kanan/PDF di Mobile */
     .main-content {
         height: auto;
         margin-left: 0;
     }
 
     .canvas-container {
-        padding: 16px 10px;
+        padding: 20px 10px;
     }
 }
