@@ -1,109 +1,196 @@
-/* --- TEMA MODERN GLASSMORPHISM --- */
+/* --- TEMA FULLSCREEN INTERAKTIF (GLASSMORPHISM) --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-main: #0f172a;
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
     --text-primary: #f8fafc;
     --text-muted: #94a3b8;
     --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    --accent-hover: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-    --btn-glass: rgba(255, 255, 255, 0.05);
 }
 
 body {
     margin: 0;
-    background: var(--bg-gradient);
+    background-color: var(--bg-main);
     color: var(--text-primary);
-    font-family: 'Poppins', sans-serif; /* Font yang lebih modern */
-    display: flex;
-    flex-direction: row;
+    font-family: 'Poppins', sans-serif;
     height: 100vh;
     overflow: hidden;
+    position: relative;
+    background-image: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
 }
 
-/* --- SIDEBAR UTAMA (Desktop: Kiri) --- */
-.sidebar {
-    width: 340px;
+/* --- AREA PDF FULLSCREEN --- */
+.main-content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.canvas-container {
+    flex: 1;
+    overflow: auto;
+    /* Memberi ruang di bawah agar dokumen tidak tertutup navigasi melayang */
+    padding: 30px 20px 120px 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+canvas {
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* --- NAVIGASI KAPSUL MELAYANG (BAWAH TENGAH) --- */
+.floating-nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-right: 1px solid var(--glass-border);
+    border: 1px solid var(--glass-border);
+    padding: 10px 24px;
+    border-radius: 50px;
     display: flex;
-    flex-direction: column;
-    padding: 30px 24px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    flex-shrink: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 100;
-    box-shadow: 5px 0 25px rgba(0,0,0,0.2);
+    align-items: center;
+    gap: 24px;
+    z-index: 50;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.close-sidebar-btn {
-    display: none;
+.btn-nav {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid transparent;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-nav:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.page-info {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+.page-info strong {
+    color: #ffffff;
+}
+
+/* --- TOMBOL MELAYANG PROFIL (KANAN BAWAH) --- */
+.fab-profile {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab-profile:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.6);
+}
+
+/* --- PANEL PROFIL TERSEMBUNYI (SLIDE DARI KANAN) --- */
+.profile-panel {
+    position: fixed;
+    top: 0;
+    right: -420px; /* Sembunyikan di luar layar saat awal */
+    width: 350px;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid var(--glass-border);
+    padding: 40px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 200;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+}
+
+.profile-panel.open {
+    right: 0; /* Munculkan ke layar saat diklik */
+}
+
+.close-panel-btn {
     position: absolute;
-    top: 15px;
+    top: 20px;
     right: 20px;
     background: none;
     border: none;
     color: var(--text-muted);
     font-size: 2.2rem;
     cursor: pointer;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.close-sidebar-btn:hover { 
-    color: var(--text-primary); 
+.close-panel-btn:hover {
+    color: white;
     transform: rotate(90deg);
 }
 
+/* Area Profil di Dalam Panel */
 .logo-container {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     margin-bottom: 30px;
-    position: relative;
 }
 
-/* GAYA FOTO PROFIL BERSINAR */
 .logo-img {
-    width: 110px; 
-    height: 110px;
+    width: 120px; 
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
     border: 4px solid transparent;
-    background-image: var(--bg-gradient), var(--accent-gradient);
+    background-image: var(--bg-main), var(--accent-gradient);
     background-origin: border-box;
     background-clip: content-box, border-box;
-    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
-    transition: transform 0.3s ease;
-}
-
-.logo-img:hover {
-    transform: scale(1.05);
 }
 
 .identity-card {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 24px;
     margin-bottom: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.identity-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .identity-card h2 {
     margin: 0 0 8px 0;
     font-size: 1.25rem;
-    color: #ffffff;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    color: white;
 }
 
 .identity-info {
@@ -111,11 +198,7 @@ body {
     color: var(--text-muted);
     line-height: 1.8;
 }
-
-.identity-info strong {
-    color: #e2e8f0;
-    font-weight: 500;
-}
+.identity-info strong { color: #e2e8f0; }
 
 .divider {
     height: 1px;
@@ -128,187 +211,26 @@ body {
     color: #ffffff;
     text-decoration: none;
     padding: 14px;
-    border-radius: 50px; /* Bentuk pil/kapsul */
+    border-radius: 50px;
     text-align: center;
     font-weight: 600;
-    font-size: 0.95rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     transition: all 0.3s ease;
     margin-top: auto;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-    border: border: 1px solid rgba(255,255,255,0.1);
 }
 
 .btn-download:hover {
-    background: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
 }
 
-/* --- AREA PDF UTAMA (Kanan) --- */
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: 100vh;
-}
-
-/* Toolbar Navigasi Desktop */
-.toolbar {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 16px 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-.btn-nav {
-    background: var(--btn-glass);
-    color: var(--text-primary);
-    border: 1px solid var(--glass-border);
-    padding: 10px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.btn-nav:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-.page-info {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    background: rgba(0,0,0,0.2);
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid var(--glass-border);
-}
-
-.page-info strong {
-    color: #ffffff;
-    font-weight: 600;
-}
-
-/* Area Canvas */
-.canvas-container {
-    flex: 1;
-    overflow: auto;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-canvas {
-    border-radius: 8px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
-    max-width: 100%;
-    height: auto !important;
-}
-
-/* --- NAVBAR MOBILE --- */
-.mobile-nav {
-    display: none; 
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 12px 20px;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-}
-
-.menu-toggle {
-    background: var(--btn-glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 8px;
-    color: var(--text-primary);
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s;
-}
-.menu-toggle:hover { background: rgba(255,255,255,0.1); }
-
-.pdf-nav-mobile {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-nav-mobile {
-    background: var(--btn-glass);
-    color: var(--text-primary);
-    border: 1px solid var(--glass-border);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.btn-nav-mobile:hover {
-    background: rgba(255,255,255,0.1);
-}
-
-/* =============================================
-   RESPONSIVE MOBILE
-   ============================================= */
+/* Responsif Mobile Khusus Layout Baru */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        overflow: auto;
-    }
-
-    .toolbar { display: none; }
-    .mobile-nav { display: flex; }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 300px; 
-        height: 100vh;
-        transform: translateX(-100%); 
-        border-right: 1px solid var(--glass-border);
-        box-shadow: 20px 0 50px rgba(0,0,0,0.7);
-        padding: 30px 20px;
-        background: rgba(15, 23, 42, 0.95); /* Sedikit lebih gelap di mobile agar teks terbaca jelas */
-    }
-
-    .sidebar.open {
-        transform: translateX(0); 
-    }
-
-    .close-sidebar-btn { display: block; }
-
-    .main-content {
-        height: auto;
-        margin-left: 0;
-    }
-
-    .canvas-container {
-        padding: 20px 10px;
-    }
+    .profile-panel { width: 100%; right: -100%; }
+    .floating-nav { bottom: 20px; width: 85%; justify-content: space-between; }
+    /* Pindahkan tombol Profil lebih ke atas sedikit di HP agar tidak terhalang */
+    .fab-profile { bottom: 100px; right: 20px; width: 55px; height: 55px; }
 }
